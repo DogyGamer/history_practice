@@ -1,25 +1,30 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import { YMaps, Map } from '@pbe/react-yandex-maps';
+import { HashRouter as Router, Routes, Route, Navigate } from 'react-router';
+
+import { FullMap } from './Map';
+import { NavigationBar } from './Navbar';
+import { Container } from 'react-bootstrap';
+import List from './List';
+import ObjectPage from './ObjectPage';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <YMaps>
+      <Router basename={""}>
+        <NavigationBar/>
+        <Container>
+          <Routes>
+            <Route path="/" element={<FullMap />} />
+            <Route path="/list" element={<List />} />
+            <Route path="/object/:id" element={<ObjectPage />} />
+            <Route path="*" element={<Navigate to="/#/" />} />
+          </Routes>
+        </Container>
+      </Router>
+    </YMaps>
   );
 }
 
